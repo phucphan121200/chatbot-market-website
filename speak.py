@@ -1,13 +1,14 @@
 import random
 import json
 import speech_recognition as sr
-import pyttsx3
 import torch
 from gtts import gTTS
 import os
 from playsound import playsound
 import datetime
 import time
+from youtube_search import YoutubeSearch
+import webbrowser
 
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
@@ -50,6 +51,17 @@ def get_text():
     time.sleep(3)
     stop()
     return 0
+
+def youtube():
+    speak('Bạn muốn xem gì?')
+    myTitlle = get_text()
+    while True:
+        result = YoutubeSearch(myTitlle, max_results=10).to_dict()
+        if result:
+            break
+    url = 'https://www.youtube.com/watch?v=' + result[0]['id']
+    webbrowser.open(url)
+    speak("Video đang được mở trên Youtube.")
 
 #main
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -111,7 +123,6 @@ while True:
         else:
             print(f"{bot_name}: I do not understand...")
             speak("I do not understand...")
-            break
         break
     except:
         sentence = ""
