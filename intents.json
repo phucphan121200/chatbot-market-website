@@ -1,6 +1,19 @@
 {
   "intents": [
     {
+      "tag": "Chaohoi",
+      "patterns": [
+        "xin chào",
+        "e",
+        "chào bạn",
+        "Có ai không"
+      ],
+      "responses": [
+        "xin chào bạn",
+        "chào bạn"
+      ]
+    },
+    {
       "tag": "greeting",
       "patterns": [
         "Hi",
@@ -11,7 +24,7 @@
         "Good day"
       ],
       "responses": [
-        "Hey :)",
+        "Hey :-)",
         "Hello, thanks for visiting",
         "Hi there, what can I do for you?",
         "Hi there, how can I help?"
@@ -79,15 +92,7 @@
         "Why did the hipster burn his mouth? He drank the coffee before it was cool.",
         "What did the buffalo say when his son left for college? Bison."
       ]
-    },
-    {
-      "tag": "blame",
-      "patterns": ["Fuck", "Dmm", "Clm"],
-      "responses": [
-        "Dmm tuổi lozz",
-        "Muốn solo hay hội đồng",
-        "Ăn nói cho đàng hoàng vào condilozz"
-      ]
     }
+   
   ]
 }

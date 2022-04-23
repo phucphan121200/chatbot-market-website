@@ -1,3 +1,4 @@
+from base64 import encode
 import numpy as np
 import random
 import json
@@ -6,10 +7,10 @@ import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 
-from nltk_utils import bag_of_words, tokenize, stem
+from nltk_utils import bag_of_words, tokenize, stem, tokenizeVN
 from model import NeuralNet
 
-with open('intents.json', 'r') as f:
+with open('intents.json', 'r',encoding='utf-8') as f:
     intents = json.load(f)
 
 all_words = []
@@ -21,16 +22,21 @@ for intent in intents['intents']:
     # add to tag list
     tags.append(tag)
     for pattern in intent['patterns']:
+        print(pattern)
         # tokenize each word in the sentence
-        w = tokenize(pattern)
+        w = tokenizeVN(pattern)
+        
         # add to our words list
         all_words.extend(w)
         # add to xy pair
         xy.append((w, tag))
 
+# print(all_words)
+
+
 # stem and lower each word
 ignore_words = ['?', '.', '!']
-all_words = [stem(w) for w in all_words if w not in ignore_words]
+# all_words = [stem(w) for w in all_words if w not in ignore_words]
 # remove duplicates and sort
 all_words = sorted(set(all_words))
 tags = sorted(set(tags))
@@ -44,11 +50,26 @@ X_train = []
 y_train = []
 for (pattern_sentence, tag) in xy:
     # X: bag of words for each pattern_sentence
+    # pattern_sentence is the pattern tokenized
+    # all_words is the array with pattern tokenized and stemmed
     bag = bag_of_words(pattern_sentence, all_words)
     X_train.append(bag)
     # y: PyTorch CrossEntropyLoss needs only class labels, not one-hot
+    # lable return number fixed with tag name in tags array
     label = tags.index(tag)
     y_train.append(label)
+
+# explain
+# for i in xy:
+#     print (i)
+# print(len(X_train))
+# print(len(y_train))
+# for xtrain in X_train:
+#     print(xtrain)
+# print("\n")
+# for ytrain in y_train:
+#     print(ytrain)
+
 
 X_train = np.array(X_train)
 y_train = np.array(y_train)
