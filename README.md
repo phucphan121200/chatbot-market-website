@@ -81,3 +81,15 @@ Have a look at [intents.json](intents.json). You can customize it according to y
   ]
 }
 ```
+
+
+
+
+
+<!-- classify VietNamese -->
+<!-- 
+b1: segment sentence hay tokenize bằng thư viện underthesea
+b2: stemming word bằng cách xóa dấu bằng thư viện unidecode và xóa khoảng trắng bằng replace()
+b3: thêm vào bag of word
+b4 thực hiện tiền xử lý đầu vào như b2.
+ -->
